@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
   # Provision VM
   config.vm.provision "shell", path: "provision.sh", privileged: false
 
-  # Forward port
-  config.vm.network :forwarded_port, guest: 8000, host: 8080
+  # Port forwarding
+  config.vm.network :forwarded_port, guest: 8000, host: 8080  # FastAPI
+  config.vm.network :forwarded_port, guest: 8888, host: 8888  # Jupyter
 end

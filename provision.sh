@@ -1,27 +1,29 @@
+APP_DIR=/vagrant
 CONDA_DOWNLOAD=https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 CONDA_FILE=Miniconda3-latest-Linux-x86_64.sh
-ENV_NAME=fastapi
+ENV_NAME=admin
 
 # Update/upgrade apt
-echo "=== Update apt ==="
+echo "=== Update apt-get =========="
 echo ""
+
 sudo apt-get update -y
-sudo apt update -y
+sudo apt-get update -y
 sudo apt-get upgrade -y
-sudo apt upgrade -y
+sudo apt-get upgrade -y
 
-# Ensure basic packages are installed
+# Ensure common packages are installed
 echo ""
-echo "=== Basic pkgs ==="
+echo "=== Common pkgs =========="
 echo ""
 
-sudo apt install mlocate -y
-sudo apt install nano -y
-sudo apt install wget -y
+sudo apt-get install mlocate -y
+sudo apt-get install nano -y
+sudo apt-get install wget -y
 
 # Install miniconda
 echo ""
-echo "=== Insstall miniconda ==="
+echo "=== Install miniconda =========="
 echo ""
 
 cd ~  # Ensure that we're in home dir
@@ -36,36 +38,28 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda init bash
 source ~/.bashrc
 
-# Create conda environment
-echo ""
-echo "=== conda environment ==="
-echo ""
-conda create -n $ENV_NAME python=3.10 -y
-conda activate $ENV_NAME
+# Update conda
+conda update -n base -c defaults conda
 
-# Install our app's dependencies into the conda env
-# Create conda environment
-echo ""
-echo "=== Install dependencies ==="
-echo ""
-
-conda install -c conda-forge fastapi uvicorn sqlalchemy alembic click faker pytest jupyter jupyterlab -y
-
-# Starlette Admin isn't currently available via Anaconda, install via pip
-pip install starlette-admin
+# Conda environment
+bash /vagrant/conda_env.sh
 
 # Install PostgreSQL
 echo ""
-echo "=== Install PostgreSQL ==="
+echo "=== Install PostgreSQL =========="
 echo ""
 
-sudo apt install -y postgresql postgresql-contrib
+sudo apt-get install -y postgresql postgresql-contrib
 sudo apt-get install libpq-dev
-sudo apt install -y postgresql-client-common
+sudo apt-get install -y postgresql-client-common
+
+# Create `vagrant` user and database
+sudo -u postgres psql -c "CREATE USER vagrant WITH PASSWORD 'passw0rd' CREATEDB;"
+sudo -u vagrant psql -d postgres  -c "CREATE DATABASE api_admin;"
 
 # Install and start service to run our app in the VM
 echo ""
-echo "=== Linux service to run FastAPI app ==="
+echo "=== Linux service to run FastAPI app =========="
 echo ""
 
 sudo cp /vagrant/fastapi.service /etc/systemd/system

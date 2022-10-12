@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=vagrant
 WorkingDirectory=/vagrant
-ExecStart=/home/vagrant/miniconda3/envs/fastapi/bin/uvicorn app:app --host 0.0.0.0 --port 8000  --reload
+ExecStart=/home/vagrant/miniconda3/envs/admin/bin/uvicorn app:app --host 0.0.0.0 --port 8000  --reload
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 
