@@ -10,13 +10,16 @@ and starts the Linux service to run FastAPI.
 
 Note that we're creating a `conda` environment called `admin`. If you'd like to
 change the name of the environment, you'll have to change the corresponding
-diretory in the `ExecStart` section of the `fastapi.service` file.
+diretory in the `ExecStart` section of the `fastapi.service` file before
+provisioning the VM.
 
 A `requirements.txt` file is provided, both for `conda` dependency installation
 and to facilitate another method of environment creation.
 
+- Run `vagrant ssh` to SSH into the machine
+- Run `conda activate admin` to activate the conda environment
 - Install `starlette-admin` and `sqlalchemy[asyncio]` via pip
-- Activate the `admin` conda envrironment, `cd /vagrant`, and seed the database:
+- `cd /vagrant`, and seed the database:
   `python app/database/seed.py` which creates the `tasks` table and adds
   stubbed task data from `tasks.txt`
 
@@ -33,3 +36,5 @@ and to facilitate another method of environment creation.
 # See Also:
 
 - Related projects: https://github.com/jowilf/starlette-admin#related-projects-and-inspirations
+- Previous FastAPI presenter's repo with resources in the README: https://github.com/fusecloud/fastapi_atx
+- [SQLModel](https://sqlmodel.tiangolo.com/)
