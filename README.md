@@ -5,8 +5,8 @@ Sample app with [FastAPI](https://fastapi.tiangolo.com/) and [Starlette-Admin](h
 # Installation
 
 I'm using Vagrant to run an Ubuntu VM on my local machine. The `Vagrantfile`
-provisions the VM installing `miniconda` and `PostgreSQL`. It also creates the
-and starts the Linux service to run FastAPI.
+provisions, via `provision.sh` the VM installing `miniconda` and `PostgreSQL`.
+It also creates the and starts the Linux service to run FastAPI.
 
 Note that we're creating a `conda` environment called `admin`. If you'd like to
 change the name of the environment, you'll have to change the corresponding
@@ -14,7 +14,7 @@ diretory in the `ExecStart` section of the `fastapi.service` file before
 provisioning the VM.
 
 A `requirements.txt` file is provided, both for `conda` dependency installation
-and to facilitate another method of environment creation.
+and to facilitate other environment creation methods.
 
 - Run `vagrant ssh` to SSH into the machine
 - Run `conda activate admin` to activate the conda environment
@@ -38,3 +38,5 @@ and to facilitate another method of environment creation.
 - Related projects: https://github.com/jowilf/starlette-admin#related-projects-and-inspirations
 - Previous FastAPI presenter's repo with resources in the README: https://github.com/fusecloud/fastapi_atx
 - [SQLModel](https://sqlmodel.tiangolo.com/)
+- Starlette Admin demo: https://starlette-admin-demo.jowilf.com/
+- Starlette Admin demo source: https://github.com/jowilf/starlette-admin-demo
